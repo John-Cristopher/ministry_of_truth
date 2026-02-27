@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Ministério da Verdade | Superterra</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <div class="scanlines"></div>
+
+    <div class="container">
+
+        <div class="header">
+            <h1 class="glitch-text">MINISTÉRIO DA VERDADE</h1>
+            <p>GOVERNO CENTRAL DA SUPERTERRA</p>
+            <a href="/" class="sync-btn">Voltar ao Relátorio</a>
+
+            <div class="logo-container">
+                <img src="{{ url_for('static', filename='images/ministry_of_truth_icon.svg') }}" class="rotating-logo"
+                    onclick="ativarGlitch()">
+            </div>
+        </div>
+
+        <div class="quote">
+            {{ dados.frase }}
+        </div>
+
+        <div class="grid">
+
+            <div class="card priority-card">
+                <h2>Status do Sistema</h2>
+                <div class="label">Condição Atual</div>
+                <div class="val">{{ dados.status_sistema }}</div>
+
+                <div class="label">Última Atualização</div>
+                <div class="val">{{ dados.atualizacao }}</div>
+            </div>
+
+            <div class="card">
+                <h2>Monitoramento Civil</h2>
+                <div class="label">Cidadãos Monitorados</div>
+                <div class="val">{{ dados.cidadania_monitorada }}</div>
+
+                <button class="sync-btn" onclick="sincronizar()">Sincronizar Dados</button>
+            </div>
+
+            <div class="card">
+                <h2>Nível de Informação</h2>
+                <div class="label">Controle Narrativo</div>
+                <div class="val">{{ dados.nivel_propaganda }}</div>
+            </div>
+
+        </div>
+        <div class="grid" style="margin-top:40px;">
+            {% for card in dados.cards_extra[:2] %}
+            <div class="card">
+                <h2>{{ card.titulo }}</h2>
+                <div class="label">{{ card.label }}</div>
+                <div class="val">{{ card.texto }}</div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- FRAME DE PROPAGANDA -->
+        <div
+            style="margin:40px 0; border:2px solid var(--warning-yellow); height:120px; display:flex; align-items:center; justify-content:center; background:#111;">
+            <img src="{{ url_for('static', filename='images/propaganda_superterra.jpg') }}"
+                style="max-height:100%; max-width:100%; object-fit:cover;">
+        </div>
+
+        <!-- GRID EXTRA INFERIOR -->
+        <div class="grid">
+            {% for card in dados.cards_extra[2:] %}
+            <div class="card">
+                <h2>{{ card.titulo }}</h2>
+                <div class="label">{{ card.label }}</div>
+                <div class="val">{{ card.texto }}</div>
+            </div>
+            {% endfor %}
+        </div>
+
+    </div>
+
+    <div class="footer-marquee">
+        <div class="marquee-content">
+            SUPERTERRA • ORDEM • VERDADE • CONTROLE • ESTABILIDADE • SUPERTERRA • ORDEM • VERDADE •
+        </div>
+    </div>
+
+    <script>
+        function ativarGlitch() {
+            document.body.classList.add("glitch-active");
+            setTimeout(() => {
+                document.body.classList.remove("glitch-active");
+            }, 400);
+        }
+
+        function sincronizar() {
+            location.reload();
+        }
+    </script>
+
+</body>
+
+</html>

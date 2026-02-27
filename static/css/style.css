@@ -26,8 +26,8 @@ body {
 
 ::-webkit-scrollbar-thumb {
     background: #1a1a1a;
-    border: 2px solid var(--main-green);
-    box-shadow: inset 0 0 5px var(--main-green);
+    border: 2px solid var(--warning-yellow);
+    box-shadow: inset 0 0 5px var(--warning-yellow);
 }
 
 /* --- INTERFACE DE MONITORIZAÇÃO --- */

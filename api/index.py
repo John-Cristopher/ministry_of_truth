@@ -2,6 +2,7 @@ import requests
 import random
 import time
 from flask import Flask, render_template, abort
+import datetime
 
 app = Flask(__name__, template_folder="../templates", static_folder="../static")
 
@@ -32,6 +33,44 @@ FRASES_PATRIOTICAS = [
     "Pensamento alinhado é progresso garantido.",
     "A ordem precede a prosperidade.",
     "Lealdade é a verdadeira forma de liberdade.",
+]
+
+MINISTERIO_DB = [
+    {
+        "titulo": "Arquivo Histórico",
+        "label": "Status",
+        "texto": "Registros revisados e harmonizados com a versão oficial.",
+    },
+    {
+        "titulo": "Departamento de Revisão",
+        "label": "Operação",
+        "texto": "Narrativas inconsistentes foram recalibradas.",
+    },
+    {
+        "titulo": "Centro de Transparência",
+        "label": "Relatório",
+        "texto": "A clareza informacional aumentou 12% neste ciclo.",
+    },
+    {
+        "titulo": "Controle Narrativo",
+        "label": "Diretriz",
+        "texto": "Versões paralelas da realidade foram unificadas.",
+    },
+    {
+        "titulo": "Divisão de Memória Coletiva",
+        "label": "Atualização",
+        "texto": "Eventos passados foram otimizados para estabilidade.",
+    },
+    {
+        "titulo": "Vigilância Estratégica",
+        "label": "Monitoramento",
+        "texto": "Fluxos de opinião permanecem sob supervisão.",
+    },
+    {
+        "titulo": "Unidade de Consenso",
+        "label": "Progresso",
+        "texto": "Índice de concordância pública em ascensão.",
+    },
 ]
 
 
@@ -162,6 +201,28 @@ def index():
 
     frase_do_dia = random.choice(FRASES_PATRIOTICAS)
     return render_template("index.html", data=report_data, quote=frase_do_dia)
+
+
+@app.route("/ministerio_da_verdade")
+def ministerio_da_verdade():
+    frases = [
+        "A VERDADE É ABSOLUTA.",
+        "DESINFORMAÇÃO É TRAIÇÃO.",
+        "SUPERTERA OBSERVA.",
+        "TRANSPARÊNCIA É PODER.",
+        "A ORDEM GARANTE A PAZ.",
+    ]
+
+    dados = {
+        "status_sistema": "OPERACIONAL",
+        "nivel_propaganda": f"{random.randint(87, 100)}%",
+        "cidadania_monitorada": f"{random.randint(1000000, 9000000)}",
+        "atualizacao": datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
+        "frase": random.choice(frases),
+        "cards_extra": random.sample(MINISTERIO_DB, 4),
+    }
+
+    return render_template("ministerio_da_verdade.html", dados=dados)
 
 
 if __name__ == "__main__":
