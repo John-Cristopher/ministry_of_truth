@@ -3,7 +3,7 @@ import random
 import time
 from flask import Flask, render_template, abort
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder="../templates", static_folder="../static")
 
 # Configurações de Cache Simples (Memória)
 cache = {"data": None, "last_update": 0}
@@ -110,6 +110,11 @@ def get_data():
 
 
 # --- HANDLERS DE ERRO ---
+
+
+@app.route("/favicon.ico")
+def favicon():
+    return "", 204  # Retorna "No Content" e evita o erro 404
 
 
 @app.errorhandler(404)
