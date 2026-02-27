@@ -17,6 +17,21 @@ FRASES_PATRIOTICAS = [
     "A dúvida é o primeiro passo para a traição.",
     "A Liberdade não tem preço, mas custa muita munição.",
     "Lembre-se: O fogo amigo é uma ilusão de ótica.",
+    "A verdade não muda. Apenas é reforçada.",
+    "Super Terra não observa você. Ela confia em você.",
+    "Democracia Gerenciada: eficiência acima da emoção.",
+    "Quem questiona a ordem, questiona a própria liberdade.",
+    "Obediência é o idioma universal da paz.",
+    "A unidade é nossa maior arma.",
+    "A informação correta é munição estratégica.",
+    "A Super Terra não falha. Ela recalibra.",
+    "Sacrifício individual, vitória coletiva.",
+    "A vigilância constante é o preço da estabilidade.",
+    "O caos é ausência de direção. Nós fornecemos direção.",
+    "Toda transmissão é um ato de patriotismo.",
+    "Pensamento alinhado é progresso garantido.",
+    "A ordem precede a prosperidade.",
+    "Lealdade é a verdadeira forma de liberdade.",
 ]
 
 
@@ -147,3 +162,7 @@ def index():
 
     frase_do_dia = random.choice(FRASES_PATRIOTICAS)
     return render_template("index.html", data=report_data, quote=frase_do_dia)
+
+
+if __name__ == "__main__":
+    app.run(debug=True)
