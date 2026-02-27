@@ -256,7 +256,6 @@ h2,
     font-weight: bold;
     z-index: 100;
     overflow: hidden;
-    white-space: nowrap;
 }
 
 .marquee-content {
