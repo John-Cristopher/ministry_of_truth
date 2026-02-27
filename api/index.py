@@ -142,8 +142,3 @@ def index():
 
     frase_do_dia = random.choice(FRASES_PATRIOTICAS)
     return render_template("index.html", data=report_data, quote=frase_do_dia)
-
-
-
-if __name__ == "__main__":
-    app.run(debug=True)
