@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>TERMINAL DO MINISTÉRIO DA VERDADE</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+    <div class="scanlines"></div>
+    <div class="container">
+        <div class="header">
+            <div class="logo-container">
+                <img src="{{ url_for('static', filename='images/logo_superterra.png') }}" class="rotating-logo"
+                    alt="Super Earth Logo">
+            </div>
+            <h1>SISTEMA DE MONITORAMENTO GALÁCTICO</h1>
+            <small>CONECTADO AO MINISTÉRIO DA VERDADE | STATUS: OPERACIONAL</small>
+            <button onclick="syncSignal()" class="sync-btn">[ SYNC SIGNAL ]</button>
+        </div>
+
+        <div class="quote">"{{ quote }}"</div>
+
+        <div class="map-frame">
+            <iframe src="https://helldiverscompanion.com/"></iframe>
+        </div>
+
+        {% if data.democracia %}
+        <h2 class="priority-title">[ ALVOS DE IMPORTÂNCIA ESTRATÉGICA ]</h2>
+        <div class="grid" style="margin-bottom: 40px;">
+            {% for p in data.democracia %}
+            <div class="card priority-card">
+                <h3 style="color: #fff; margin: 0;">⭐ {{ p.name }}</h3>
+                <p style="font-size: 0.9em; color: #ccc;">OBJETIVO PRIORITÁRIO DA SUPER TERRA</p>
+                <div class="label">Helldivers em Operação:</div>
+                <div class="val">
+                    {{ "{:,}".format(p.statistics.playerCount | default(0) | int) }}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <div class="grid">
+            <section>
+                <h2 style="color: #ff4444;">[ TOP 3: SACRIFÍCIO PELO DEVER ]</h2>
+                {% for p in data.top_mortes %}
+                <div class="card" style="--faction-color: #ff4444; margin-bottom: 10px;">
+                    <h3 style="margin: 0;">{{ loop.index }}º - {{ p.name }}</h3>
+                    <div class="label">Facção: <span style="color: {{ p.color }}">{{ p.faction_br }}</span></div>
+                    <div class="label">Mártires (Mortes):</div>
+                    <div class="val" style="color: #ff4444;">{{ "{:,}".format(p.statistics.deaths | int) }}</div>
+                </div>
+                {% endfor %}
+            </section>
+
+            <section>
+                <h2 style="color: #00ffff;">[ TOP 3: MAIOR MOBILIZAÇÃO TÁTICA ]</h2>
+                {% for p in data.top_frentes %}
+                <div class="card" style="--faction-color: #00ffff; margin-bottom: 10px;">
+                    <h3 style="margin: 0;">{{ loop.index }}º - {{ p.name }}</h3>
+                    <div class="label">Helldivers Mobilizados:</div>
+                    <div class="val" style="color: #00ffff;">{{ "{:,}".format(p.statistics.playerCount | int) }}</div>
+                    <div class="label">Status: Calculando...</div>
+                </div>
+                {% endfor %}
+            </section>
+        </div>
+    </div>
+
+    <div class="intel-header">
+        <div class="header-tag">
+            <span class="blink">●</span> REC-DATA: SEC_749 // INTEL_REPORT
+        </div>
+        <h2 class="glitch-text">[ RELATÓRIO DE INTELIGÊNCIA POR FACÇÃO ]</h2>
+    </div>
+
+    <div class="footer-marquee">
+        <div class="marquee-content" id="marquee">
+            ESTABELECENDO CONEXÃO COM O MINISTÉRIO DA VERDADE...
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+</body>
+
+</html>

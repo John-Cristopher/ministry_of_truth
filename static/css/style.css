@@ -1,0 +1,363 @@
+/* --- VARIÁVEIS DO MINISTÉRIO DA VERDADE --- */
+:root {
+    --main-green: #20c20e;
+    --warning-yellow: #ffe800;
+}
+
+/* --- BASE DO TERMINAL --- */
+body {
+    font-family: "Consolas", monospace;
+    background: #020202;
+    color: var(--main-green);
+    margin: 0;
+    padding: 20px 20px 80px 20px;
+    overflow-y: auto;
+    animation: flicker 0.15s infinite;
+    will-change: filter; /* Otimiza a renderização de efeitos */
+    /* Desfoque leve e cor tática em todo o site */
+    filter: blur(0.3px) !important;
+}
+
+body::after {
+    content: " ";
+    display: block;
+    position: fixed; /* Fica fixo na tela ao rolar */
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    /* Cria um padrão de pequenos pontos pretos */
+    background: radial-gradient(#000 15%, transparent 20%);
+    background-size: 3px 3px; /* Tamanho do ponto e espaçamento */
+    opacity: 0.15; /* Suavidade do padrão em todo o site */
+    z-index: 100; /* Acima de tudo, exceto talvez scanlines */
+    pointer-events: none; /* Não interfere nos cliques */
+}
+
+body::before {
+    content: " ";
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    /* Simula a vinheta e o brilho central do monitor */
+    background: radial-gradient(
+        circle,
+        rgba(18, 16, 16, 0) 50%,
+        rgba(0, 0, 0, 0.4) 100%
+    );
+    z-index: 12;
+    pointer-events: none;
+}
+
+/* Barra de rolagem estilo Super Contratorpedeiro */
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: #050505;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #1a1a1a;
+    border: 2px solid var(--main-green);
+    box-shadow: inset 0 0 5px var(--main-green);
+}
+
+/* --- INTERFACE DE MONITORIZAÇÃO --- */
+.scanlines {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        rgba(18, 16, 16, 0) 50%,
+        rgba(0, 0, 0, 0.1) 50%
+    );
+    background-size: 100% 4px;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+    position: relative;
+    z-index: 5;
+}
+
+/* --- CABEÇALHO E IDENTIDADE --- */
+.header {
+    border: 2px solid var(--warning-yellow);
+    padding: 15px;
+    text-align: center;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.logo-container {
+    position: absolute;
+    top: 15px;
+    right: 25px;
+    perspective: 1000px;
+}
+
+.rotating-logo {
+    width: 80px;
+    height: auto;
+    filter: drop-shadow(0 0 10px var(--main-green));
+    animation: rotate-y 12s linear infinite;
+    cursor: pointer;
+    transition: filter 0.3s;
+}
+
+.rotating-logo:hover {
+    filter: drop-shadow(0 0 20px #fff);
+}
+
+.quote {
+    background: #111;
+    padding: 15px;
+    border-left: 5px solid var(--warning-yellow);
+    border-right: 5px solid var(--warning-yellow);
+    margin-bottom: 25px;
+    text-align: center;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #fff;
+}
+
+/* --- MAPA E GRIDS --- */
+.map-frame {
+    position: relative;
+    width: 100%;
+    height: 600px;
+    border: 2px solid var(--main-green);
+    margin-bottom: 30px;
+    background: #000;
+    overflow: hidden;
+}
+
+.map-frame::after {
+    display: none !important;
+}
+
+iframe {
+    filter: none !important;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 20px;
+}
+
+/* --- CARDS TÁTICOS --- */
+.card {
+    border: 1px solid rgba(32, 194, 14, 0.2);
+    padding: 20px;
+    background: rgba(0, 5, 0, 0.9);
+    position: relative;
+    border-left: 5px solid var(--faction-color, var(--main-green));
+    box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.5);
+    transition: transform 0.2s ease;
+}
+
+.card:hover {
+    transform: scale(1.02);
+    border-color: var(--main-green);
+}
+
+/* Cantos tecnológicos (Brackets) */
+.card::before,
+.card::after {
+    content: "";
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-color: var(--main-green);
+    border-style: solid;
+    opacity: 0.5;
+}
+
+.card::before {
+    top: 0;
+    right: 0;
+    border-width: 2px 2px 0 0;
+}
+.card::after {
+    bottom: 0;
+    left: 0;
+    border-width: 0 0 2px 2px;
+}
+
+.priority-card {
+    animation: pulse-white 2s infinite;
+    border: 2px solid #fff !important;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* --- TEXTOS E LABELS --- */
+h2 {
+    border-bottom: 1px solid rgba(255, 232, 0, 0.2);
+    padding-bottom: 10px;
+    display: inline-block;
+    width: 100%;
+}
+
+h1,
+h2,
+.val {
+    text-shadow:
+        0 0 8px var(--main-green),
+        0 0 15px rgba(32, 194, 14, 0.5);
+}
+
+.label {
+    color: #888;
+    font-size: 0.75em;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 12px;
+}
+
+.val {
+    color: #fff;
+    font-weight: bold;
+    font-size: 1.3em;
+    font-family: "Courier New", monospace;
+}
+
+.glitch-text {
+    color: var(--warning-yellow);
+    text-shadow:
+        2px 2px rgba(255, 0, 0, 0.3),
+        -2px -2px rgba(0, 255, 255, 0.3);
+    text-transform: uppercase;
+}
+
+/* --- ELEMENTOS DE RODAPÉ --- */
+.footer-marquee {
+    position: fixed;
+    display: flex;
+    align-items: center;
+    bottom: 0;
+    left: 0;
+    height: 40px;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    border-top: 2px solid var(--warning-yellow);
+    color: var(--warning-yellow);
+    padding: 10px 0;
+    font-weight: bold;
+    z-index: 100;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.marquee-content {
+    display: inline-block;
+    white-space: nowrap;
+    font-size: 1.1em;
+    padding-left: 0;
+    letter-spacing: 2px;
+    will-change: transform;
+}
+
+.blink {
+    animation: blink-animation 1s steps(5, start) infinite;
+    color: red;
+}
+
+/* --- ANIMAÇÕES GALÁCTICAS --- */
+@keyframes rotate-y {
+    from {
+        transform: rotateY(0deg);
+    }
+    to {
+        transform: rotateY(360deg);
+    }
+}
+
+@keyframes flicker {
+    0%,
+    15%,
+    100% {
+        opacity: 1;
+    }
+    5%,
+    10% {
+        opacity: 0.9;
+    }
+}
+
+@keyframes pulse-white {
+    0%,
+    100% {
+        box-shadow: 0 0 5px #fff;
+    }
+    50% {
+        box-shadow: 0 0 20px #fff;
+        border-color: #fff;
+    }
+}
+
+@keyframes glitch-skew {
+    0%,
+    100% {
+        transform: skew(0deg);
+    }
+    20% {
+        transform: skew(5deg) translateX(-10px);
+    }
+    40% {
+        transform: skew(-5deg) translateX(10px);
+    }
+}
+
+@keyframes blink-animation {
+    to {
+        visibility: hidden;
+    }
+}
+
+.glitch-active {
+    animation: glitch-skew 0.4s steps(2, end);
+    filter: invert(1) hue-rotate(90deg);
+}
+
+.sync-btn {
+    background: transparent;
+    border: 1px solid var(--main-green);
+    color: var(--main-green);
+    font-family: "Consolas", monospace;
+    cursor: pointer;
+    font-size: 0.7em;
+    padding: 2px 10px;
+    margin-top: 10px;
+    transition: all 0.2s;
+}
+
+.sync-btn:active {
+    transform: scale(0.95);
+    filter: brightness(1.5);
+}
+
+.sync-btn:hover {
+    background: var(--main-green);
+    color: #000;
+}
+
+/* Evita que o iframe "vaze" para fora da borda em telas pequenas */
+iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    will-change: filter;
+    filter: blur(0.5px); /* Ajusta as cores do mapa ao tema verde */
+    opacity: 0.9;
+}
