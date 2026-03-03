@@ -174,7 +174,7 @@ def ministerio_da_verdade():
         "cards_extra": random.sample(MINISTERIO_DB, 4),
     }
 
-    return render_template("ministerio_da_verdade.html", dados=dados)
+    return render_template("503.html", dados=dados)
 
 
 if __name__ == "__main__":

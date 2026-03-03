@@ -1,3 +1,46 @@
-<h1>503 - INTERFERÊNCIA AUTOMATON</h1>
-<p>Sinal orbital instável. Tente novamente após o bombardeio.</p>
-<a href="/">[ RECONECTAR ]</a>
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>503 - INTERFERENCIA AUTOMATON</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        body {
+            background: #1a0000;
+            color: #ff4444;
+            text-align: center;
+            padding-top: 100px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .error-box {
+            border: 2px solid #ff4444;
+            display: inline-block;
+            padding: 40px;
+            background: rgba(0, 0, 0, 0.8);
+        }
+
+        .blink {
+            animation: blinker 1s linear infinite;
+        }
+
+        @keyframes blinker {
+            50% {
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="error-box">
+        <h1 class="blink"> [ ALERTA: COMUNICAÇÃO INTERFERIDA ] </h1>
+        <p>NOSSOS SISTEMAS DE COMUNICAÇÃO ESTÃO ENFRENTANDO INTERFERÊNCUA INIMIGA PESADA.</p>
+        <p>Eagle-1 foi despachado para recalibrar o link. A Lealdade e a Democracia prevalece.</p>
+        <hr color="#ff4444">
+        <a href="/" style="color: gold; text-decoration: none;"> [ RETORNAR AO POSTO DE COMANDO ] </a>
+    </div>
+</body>
+
+</html>
