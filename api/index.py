@@ -1,77 +1,29 @@
 import requests
 import random
 import time
+import json
 from flask import Flask, render_template, abort
 import datetime
 
 app = Flask(__name__, template_folder="../templates", static_folder="../static")
+
+# --- Carregamento de Dados Estáticos ---
+try:
+    with open("api/dados_ministerio.json", "r", encoding="utf-8") as f:
+        dados_estaticos = json.load(f)
+    FRASES_PATRIOTICAS = dados_estaticos["frases_patrioticas"]
+    MINISTERIO_DB = dados_estaticos["ministerio_db"]
+except FileNotFoundError:
+    print("ERRO CRÍTICO: O arquivo 'dados_ministerio.json' não foi encontrado.")
+    # Valores padrão para evitar que a aplicação quebre
+    FRASES_PATRIOTICAS = ["Falha ao carregar frases."]
+    MINISTERIO_DB = []
 
 # Configurações de Cache Simples (Memória)
 cache = {"data": None, "last_update": 0}
 CACHE_TIMEOUT = 300  # 5 minutos em segundos
 
 API_BASE = "https://api.helldivers2.dev/api/v1"
-
-FRASES_PATRIOTICAS = [
-    "A dor é temporária, a glória da Super Terra é eterna.",
-    "Democracia Gerenciada: O único caminho para a Paz.",
-    "A dúvida é o primeiro passo para a traição.",
-    "A Liberdade não tem preço, mas custa muita munição.",
-    "Lembre-se: O fogo amigo é uma ilusão de ótica.",
-    "A verdade não muda. Apenas é reforçada.",
-    "Super Terra não observa você. Ela confia em você.",
-    "Democracia Gerenciada: eficiência acima da emoção.",
-    "Quem questiona a ordem, questiona a própria liberdade.",
-    "Obediência é o idioma universal da paz.",
-    "A unidade é nossa maior arma.",
-    "A informação correta é munição estratégica.",
-    "A Super Terra não falha. Ela recalibra.",
-    "Sacrifício individual, vitória coletiva.",
-    "A vigilância constante é o preço da estabilidade.",
-    "O caos é ausência de direção. Nós fornecemos direção.",
-    "Toda transmissão é um ato de patriotismo.",
-    "Pensamento alinhado é progresso garantido.",
-    "A ordem precede a prosperidade.",
-    "Lealdade é a verdadeira forma de liberdade.",
-]
-
-MINISTERIO_DB = [
-    {
-        "titulo": "Arquivo Histórico",
-        "label": "Status",
-        "texto": "Registros revisados e harmonizados com a versão oficial.",
-    },
-    {
-        "titulo": "Departamento de Revisão",
-        "label": "Operação",
-        "texto": "Narrativas inconsistentes foram recalibradas.",
-    },
-    {
-        "titulo": "Centro de Transparência",
-        "label": "Relatório",
-        "texto": "A clareza informacional aumentou 12% neste ciclo.",
-    },
-    {
-        "titulo": "Controle Narrativo",
-        "label": "Diretriz",
-        "texto": "Versões paralelas da realidade foram unificadas.",
-    },
-    {
-        "titulo": "Divisão de Memória Coletiva",
-        "label": "Atualização",
-        "texto": "Eventos passados foram otimizados para estabilidade.",
-    },
-    {
-        "titulo": "Vigilância Estratégica",
-        "label": "Monitoramento",
-        "texto": "Fluxos de opinião permanecem sob supervisão.",
-    },
-    {
-        "titulo": "Unidade de Consenso",
-        "label": "Progresso",
-        "texto": "Índice de concordância pública em ascensão.",
-    },
-]
 
 
 def get_faction_data(owner_id):
